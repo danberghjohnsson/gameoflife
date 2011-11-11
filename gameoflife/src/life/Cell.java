@@ -2,6 +2,7 @@ package life;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * A cell in the universe. It might be populated or not.
@@ -19,19 +20,19 @@ public class Cell {
     /**
      * The neighbouring cells that are adjecent to this cell. This cell is not included in the result.
      */
-    public Set<Cell> neighbours() {
-        Set<Cell> result = new HashSet<Cell>();
-        result.add(new Cell(x-1, y-1));
-        result.add(new Cell(x, y-1));
-        result.add(new Cell(x+1, y-1));
+    public Area neighbourArea() {
+        Area r = new Area()
+        .add(new Cell(x-1, y-1))
+        .add(new Cell(x, y-1))
+        .add(new Cell(x+1, y-1))
 
-        result.add(new Cell(x-1, y));
-        result.add(new Cell(x+1, y));
+        .add(new Cell(x-1, y))
+        .add(new Cell(x+1, y))
 
-        result.add(new Cell(x-1, y+1));
-        result.add(new Cell(x, y+1));
-        result.add(new Cell(x+1, y+1));
-        return result;
+        .add(new Cell(x-1, y+1))
+        .add(new Cell(x, y+1))
+        .add(new Cell(x+1, y+1));
+        return r;
     }
 
     @Override

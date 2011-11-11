@@ -32,7 +32,7 @@ public class WorldTest {
         world.add(new Cell(0, 0));
         world.add(new Cell(0, 1));
 
-        assertEquals(12, world.city().size());
+        assertEquals(12, world.cityArea().size());
     }
 
     @Test

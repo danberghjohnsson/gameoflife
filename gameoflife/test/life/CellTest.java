@@ -14,9 +14,10 @@ public class CellTest {
     public void shouldHaveEightNeighboursAtDistanceOne() {
         Cell cell = new Cell(0,0);
 
-        assertEquals(8, cell.neighbours().size());
+        Area area = cell.neighbourArea();
+        assertEquals(8, area.size());
 
-        for(Cell c : cell.neighbours()) {
+        for(Cell c : area.cells()) {
             assertTrue(Math.max(Math.abs(c.x), Math.abs(c.y)) == 1);
         }
     }

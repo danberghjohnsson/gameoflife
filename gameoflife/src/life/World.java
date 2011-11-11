@@ -18,7 +18,7 @@ public class World {
     public Set<Cell> liveNeighbours(Cell cell1) {
 
         Set<Cell> result = new HashSet<Cell>(livecells);
-        result.retainAll(cell1.neighbours());
+        result.retainAll(cell1.neighbourArea().cells());
 
         return result;
     }
@@ -33,12 +33,13 @@ public class World {
     /**
      * The city area is all cells that are adjacent to some populated cell.
      */
-    public Set<Cell> city() {
-        Set<Cell> result = new HashSet<Cell>();
+    Area cityArea() {
+        Area r = new Area();
         for(Cell live : livecells) {
-            result.addAll(live.neighbours());
+            Area area = live.neighbourArea();
+            r = r.extendWith(area);
         }
-        return result;
+        return r;
     }
 
     /**
@@ -57,7 +58,7 @@ public class World {
      */
     private Set<Cell> newborns() {
         Set<Cell> newborn = new HashSet<Cell>();
-        for(Cell c: city()) {
+        for(Cell c: cityArea().cells()) {
             if(liveNeighbours(c).size() == 3) {
                 newborn.add(c);
             }
