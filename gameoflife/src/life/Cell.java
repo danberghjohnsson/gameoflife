@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * A cell in the universe. It might be populated or not.
  */
 public class Cell {
     public final int x;
@@ -16,6 +16,9 @@ public class Cell {
         this.y = y;
     }
 
+    /**
+     * The neighbouring cells that are adjecent to this cell. This cell is not included in the result.
+     */
     public Set<Cell> neighbours() {
         Set<Cell> result = new HashSet<Cell>();
         result.add(new Cell(x-1, y-1));

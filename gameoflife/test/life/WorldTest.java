@@ -14,26 +14,23 @@ import static org.junit.Assert.assertTrue;
  */
 public class WorldTest {
     @Test
-    public void shouldGiveCutOutOfLiveNeighboursToCell() {
+    public void shouldFindLiveNeighboursToCell() {
         World world = new World();
         Cell alice = new Cell(0, 0);
         world.add(alice);
         Cell bob = new Cell(0, 1);
         world.add(bob);
 
+        Set<Cell> neighbours = world.liveNeighbours(alice);
 
-        Set<Cell> cutout = world.liveNeighbours(alice);
-
-        assertEquals(Collections.singleton(bob), cutout);
+        assertEquals(Collections.singleton(bob), neighbours);
     }
 
     @Test
     public void shouldGiveUnionOfAllLiveCellHoodsAsCity() {
         World world = new World();
-        Cell alice = new Cell(0, 0);
-        world.add(alice);
-        Cell bob = new Cell(0, 1);
-        world.add(bob);
+        world.add(new Cell(0, 0));
+        world.add(new Cell(0, 1));
 
         assertEquals(12, world.city().size());
     }
@@ -43,11 +40,9 @@ public class WorldTest {
         World world = new World();
         Cell alice = new Cell(0, 0);
         world.add(alice);
-        Cell bob = new Cell(0, 1);
-        world.add(bob);
+        world.add(new Cell(0, 1));
 
         assertFalse(world.nextGen().isAlive(alice));
-
     }
 
     @Test
@@ -59,8 +54,8 @@ public class WorldTest {
         world.add(new Cell(1, 0));
 
         assertTrue(world.nextGen().isAlive(alice));
-
     }
+
     @Test
     public void shouldLetCellWithThreeNBLive() {
         World world = new World();
@@ -71,8 +66,8 @@ public class WorldTest {
         world.add(new Cell(1, 0));
 
         assertTrue(world.nextGen().isAlive(alice));
-
     }
+
     @Test
     public void shouldLetCrowedCellDie() {
         World world = new World();
@@ -87,6 +82,7 @@ public class WorldTest {
         assertFalse(world.nextGen().isAlive(alice));
 
     }
+
     @Test
     public void shouldGiveBirthToCellIfThreeNeighbours() {
         World world = new World();
@@ -98,7 +94,5 @@ public class WorldTest {
         assertTrue(world.nextGen().isAlive(alice));
 
     }
-
-
 
 }
